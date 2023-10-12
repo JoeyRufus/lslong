@@ -14,7 +14,7 @@ class Website extends Controller
         $data = $request->post();
         $genre = WebsiteCtgrModel::firstOrCreate(['title' => $data['genre']]);
         $data['website_ctgr_id'] = $genre->id;
-        $data['url'] = strpos($data['url'], 'http') ? $data['url'] : 'http://' . $data['url'];
+        $data['url'] = strpos($data['url'], 'http') === 0 ? $data['url'] : 'http://' . $data['url'];
         $r = WebsiteModel::create($data);
         return response()->json([
             'code' => '200',

@@ -93,7 +93,6 @@
                     "'>详情</div><span>" + data[i].updated_at + "</span></div></div>"
             }
             var status = s + '-' + id;
-            console.log(d);
             if ($('.pagination').data('page') != status) {
                 $('.pagination').data('page', status);
                 var navHtml = ''

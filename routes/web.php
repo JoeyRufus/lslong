@@ -30,6 +30,7 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('/list/{id}/{page}', 'Blog@getBlogByGenre');
         Route::get('/dtl/{id}', 'Blog@getBlogById');
         Route::get('/delete/{id}', 'Blog@del');
+        Route::get('/search/{title}', 'Blog@getBlogByTitle');
     });
     Route::prefix('/exp')->group(function () {
         Route::post('/store', 'Experience@store');

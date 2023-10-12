@@ -67,6 +67,16 @@ class Blog extends Controller
         $blog['genre'] = $blog->blogCtgr->title;
         return $blog;
     }
+    public function getBlogByTitle($title, $page = 1)
+    {
+        $blog = BlogModel::where('title', 'like', "%$title%")->get();
+        $i = 0;
+        foreach ($blog as $v) {
+            $blog[$i]['content'] = strip_tags($v->content);
+            $i++;
+        }
+        return $blog;
+    }
     public function del($id)
     {
         BlogModel::destroy($id);
