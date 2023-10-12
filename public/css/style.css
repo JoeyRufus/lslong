@@ -1,0 +1,291 @@
+/* 网址 */
+/* 操作按钮 */
+.operate-box {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.operate-box div {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    background: #f1404b;
+    color: #fff;
+}
+
+/* 分类菜单 */
+.website-menu {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    position: relative;
+    background: rgba(0, 0, 0, .1);
+    border-radius: 50px;
+    border: 3px solid transparent;
+    overflow: hidden;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+}
+
+.website-menu li {
+    cursor: pointer;
+    border-radius: 20px;
+    width: auto;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    color: #888;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0 16px;
+    transition: .25s;
+    -webkit-transition: .25s;
+}
+
+.website-menu .active {
+    color: #fff;
+    background-color: #f1404b;
+}
+
+.website-menu li:hover {
+    color: #fff;
+    background-color: #f1404b;
+}
+
+/* 网站列表 */
+.website-items {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    justify-content: space-evenly;
+}
+
+.website-items li {
+    width: 255px;
+    position: relative;
+    padding: 1rem;
+    background: #fff;
+    border-width: 0;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-shadow: 0px 0px 20px -5px rgba(158, 158, 158, .2);
+    transition: background-color .3s;
+    list-style: none;
+}
+
+
+.website-items .remove-site {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    font-size: 1.2rem;
+    color: #f1404b;
+    text-align: center;
+}
+
+.website-items .li-placeholder {
+    background: none;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.website-items a {
+    display: flex;
+    align-items: center;
+}
+
+.website-items img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+.url-info {
+    color: #212529;
+    font-size: .9rem;
+}
+
+.url-info p {
+    font-size: .7rem;
+    color: #6c757d;
+}
+
+/* blog&exp切换按钮  #0d6efd #198754 */
+.top-operate {
+    display: flex;
+    border: 1px solid #999;
+    font-size: 1.2rem;
+    height: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.top-operate button {
+    width: 50%;
+    color: #999;
+}
+
+.top-operate .active {
+    color: #fff;
+    font-size: 1.5rem;
+    background-color: #f1404b;
+}
+
+/* tinymce wrap */
+.tinymce {
+    display: none;
+    padding: 5px;
+    margin: 0 auto;
+    border-radius: 10px;
+    max-width: 900px;
+}
+
+.label-list {
+    padding: 10px;
+}
+
+.label-list div {
+    border: 1px solid;
+    padding: 2px 5px;
+    margin: 2px;
+    border-radius: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.mce-modal {
+    display: inline-block;
+    padding: 2px 5px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+/* 侧边栏 */
+#sideBar .serach-wrap {
+    border: 1px solid;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.last-items ul {
+    padding-left: 1rem;
+}
+
+.last-items .last-exp {
+    display: none;
+}
+
+.last-items li {
+    list-style: decimal;
+    cursor: pointer;
+    line-height: 1.2rem;
+}
+
+.last-items li:hover {
+    color: #111;
+    font-size: 1rem;
+}
+
+#sideBar .title {
+    position: relative;
+    border-bottom: 1px solid;
+    font-size: 1rem;
+    margin: 15px 0 5px;
+}
+
+#sideBar .add-btn {
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    font-size: 1.2rem;
+    transition: 1s;
+}
+
+.genre-items p {
+    cursor: pointer;
+}
+
+.genre-items p:hover {
+    background-color: #212529;
+    color: #fff;
+}
+
+.genre-items .active {
+    background-color: #212529;
+    color: #fff;
+}
+
+.label-box {
+    display: none;
+}
+
+.label-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.label-items div {
+    padding: 5px;
+    border: 1px solid;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.label-items div:hover {
+    background-color: #f1404b;
+    color: #fff;
+}
+
+.label-items .active {
+    background-color: #f1404b;
+    color: #fff;
+}
+
+
+/* 列表展示 */
+.item-detail {
+    border-bottom: 1px dashed;
+}
+
+.title {
+    font-size: 1.2rem;
+}
+
+.item-detail p span {
+    font-size: 1rem;
+}
+
+.item-detail .detail-operate {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.detail-operate div {
+    cursor: pointer;
+    padding: 1px 5px;
+    margin: 2px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.detail-operate span {
+    line-height: 26px;
+}
+
+/* 右边详情 */
+#itemDetail>p {
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+    margin: 10px 0;
+}
