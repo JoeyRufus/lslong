@@ -27,14 +27,14 @@ Route::middleware('checkLogin')->group(function () {
     Route::prefix('/blog')->group(function () {
         Route::post('/store', 'Blog@store');
         Route::post('/update', 'Blog@update');
-        Route::get('/list/{id}', 'Blog@getBlogByGenre');
+        Route::get('/list/{id}/{page}', 'Blog@getBlogByGenre');
         Route::get('/dtl/{id}', 'Blog@getBlogById');
         Route::get('/delete/{id}', 'Blog@del');
     });
     Route::prefix('/exp')->group(function () {
         Route::post('/store', 'Experience@store');
         Route::post('/update', 'Experience@update');
-        Route::get('/list/{id}', 'Experience@getExpByLabel');
+        Route::get('/list/{id}/{page}', 'Experience@getExpByLabel');
         Route::get('/dtl/{id}', "Experience@getExpById");
         Route::get('/delete/{id}', 'Experience@del');
 

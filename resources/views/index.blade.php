@@ -29,21 +29,32 @@
         @include('tinymce')
         <div id="main" class="row">
             @include('sideBar')
-            <div id="mainContent" class="col-4 shadow-sm">
-                @foreach ($blog as $v)
-                    <div class="item-detail">
-                        <div class="title">{{ $v->title }}</div>
-                        <p class="overflow-clip overflow-clip-2"><span>摘要：</span>
-                            {!! $v->content !!}
-                        </p>
-                        <div class="detail-operate">
-                            <div data-id="d-blog-{{ $v->id }}">删除</div>
-                            <div class="add-btn" data-id="e-blog-{{ $v->id }}">编辑</div>
-                            <div data-id="i-blog-{{ $v->id }}">详情</div>
-                            <span>{{ $v->updated_at }}</span>
+            <div class="col-4 shadow-sm">
+                <nav>
+                    <ul class="pagination pagination-sm justify-content-end" data-page="blog-0">
+                        @for ($i = 1; $i <= $blog->lastPage(); $i++)
+                            <li class="page-item {{ $i == 1 ? 'active' : '' }}" data-page="{{ $i }}"> <span
+                                    class="page-link">{{ $i }}</span>
+                            </li>
+                        @endfor
+                    </ul>
+                </nav>
+                <div id="mainContent">
+                    @foreach ($blog as $v)
+                        <div class="item-detail">
+                            <div class="title">{{ $v->title }}</div>
+                            <p class="overflow-clip overflow-clip-2"><span>摘要：</span>
+                                {!! $v->content !!}
+                            </p>
+                            <div class="detail-operate">
+                                <div data-id="d-blog-{{ $v->id }}">删除</div>
+                                <div class="add-btn" data-id="e-blog-{{ $v->id }}">编辑</div>
+                                <div data-id="i-blog-{{ $v->id }}">详情</div>
+                                <span>{{ $v->updated_at }}</span>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
             <div id="itemDetail" class="col-6 shadow-sm">
                 <p>点击左侧，查看详情……</p>
@@ -68,19 +79,32 @@
         $('.genre-items .active').removeClass('active');
     }
 
-    function GetList(s, id) {
-        var url = '/' + s + '/list/' + id;
+    function GetList(s, id, page = 1) {
+        var url = '/' + s + '/list/' + id + '/' + page;
         $.get(url, function(d) {
             var str = "";
-            for (var i = 0; i < d.length; i++) {
-                str += "<div class='item-detail'><div class='title'>" + d[i].title +
-                    "</div><p class='overflow-clip overflow-clip-2'><span>摘要：</span>" + d[i].content +
-                    "</p><div class='detail-operate'><div data-id='d-" + s + "-" + d[i].id +
-                    "'>删除</div><div class='add-btn' data-id='e-" + s + "-" + d[i].id +
-                    "'>编辑</div><div data-id='i-" + s + "-" + d[i].id +
-                    "'>详情</div><span>" + d[i].updated_at + "</span></div></div>"
+            var data = d.data;
+            for (var i = 0; i < data.length; i++) {
+                str += "<div class='item-detail'><div class='title'>" + data[i].title +
+                    "</div><p class='overflow-clip overflow-clip-2'><span>摘要：</span>" + data[i].content +
+                    "</p><div class='detail-operate'><div data-id='d-" + s + "-" + data[i].id +
+                    "'>删除</div><div class='add-btn' data-id='e-" + s + "-" + data[i].id +
+                    "'>编辑</div><div data-id='i-" + s + "-" + data[i].id +
+                    "'>详情</div><span>" + data[i].updated_at + "</span></div></div>"
             }
-            $('#mainContent').html(str)
+            var status = s + '-' + id;
+            console.log(d);
+            if ($('.pagination').data('page') != status) {
+                $('.pagination').data('page', status);
+                var navHtml = ''
+                if (d.last_page > 1) {
+                    for (var i = 1; i <= d.last_page; i++) {
+                        navHtml += "<li class='page-item' data-page='" + i + "'> <span class='page-link'>" + i + "</span> </li>"
+                    }
+                }
+                $('.pagination').html(navHtml);
+            }
+            $('#mainContent').html(str);
         })
     }
 
@@ -91,7 +115,12 @@
             Prism.highlightAll()
         })
     }
-
+    $('.pagination').on('click', '.page-item', function() {
+        var s = $('.pagination').data('page').split('-');
+        var page = $(this).data('page');
+        GetList(s[0], s[1], page);
+        $(this).addClass('active').siblings().removeClass('active');
+    })
     $('#mainContent').on('click', '.detail-operate div', function() {
         var data = $(this).data('id').split('-');
         switch (data[0]) {

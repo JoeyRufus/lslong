@@ -19,11 +19,6 @@ class Blog extends Controller
             'msg' => '添加成功~',
         ]);
     }
-    public function item()
-    {
-        $str = implode(',', $array); //implode：崩溃，使内爆；
-        $array = explode(',', $str); //explode：爆炸
-    }
     public function update(Request $request)
     {
         $data = $request->post();
@@ -41,9 +36,9 @@ class Blog extends Controller
         ]);
 
     }
-    public function getBlogAll()
+    public function getBlogAll($page = 1)
     {
-        $blog = BlogModel::orderBy('updated_at', 'desc')->get();
+        $blog = BlogModel::orderBy('updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
         $i = 0;
         foreach ($blog as $v) {
             $blog[$i]['content'] = strip_tags($v->content);
@@ -51,18 +46,19 @@ class Blog extends Controller
         }
         return $blog;
     }
-    public function getBlogByGenre($genreId)
+    public function getBlogByGenre($genreId, $page = 1)
     {
         if ($genreId) {
-            $blog = BlogModel::where('blog_ctgr_id', $genreId)->orderBy('updated_at', 'desc')->get();
+            $blog = BlogModel::where('blog_ctgr_id', $genreId)->orderBy('updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
         } else {
-            $blog = BlogModel::orderBy('updated_at', 'desc')->get();
+            $blog = BlogModel::orderBy('updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
         }
         $i = 0;
         foreach ($blog as $v) {
             $blog[$i]['content'] = strip_tags($v->content);
             $i++;
         }
+        //dd($blog);
         return $blog;
     }
     public function getBlogById($id)

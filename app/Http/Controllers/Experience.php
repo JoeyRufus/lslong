@@ -44,16 +44,21 @@ class Experience extends Controller
         ]);
 
     }
-    public function getExpByLabel($labelId)
+    public function getExpByLabel($labelId, $page = 1)
     {
+
         if ($labelId) {
+            /* $label = ExperienceLabelModel::with(['experience' => function ($q) {
+            $q->orderBy('updated_at', 'desc');
+            }])->find($labelId);
+            $exp = $label->experience; */
             $label = ExperienceLabelModel::with(['experience' => function ($q) {
                 $q->orderBy('updated_at', 'desc');
             }])->find($labelId);
-            $exp = $label->experience;
+            $exp = $label->experience()->paginate(10, ['*'], 'page', $page);
         } else {
             // $labelId==0时，切换经验面板查询所有exp
-            $exp = ExperienceModel::orderBy('updated_at', 'desc')->get();
+            $exp = ExperienceModel::orderBy('updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
         }
         $i = 0;
         foreach ($exp as $v) {
