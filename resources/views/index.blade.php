@@ -33,7 +33,7 @@
                 @foreach ($blog as $v)
                     <div class="item-detail">
                         <div class="title">{{ $v->title }}</div>
-                        <p class="overflow-clip-3"><span>摘要：</span>
+                        <p class="overflow-clip overflow-clip-2"><span>摘要：</span>
                             {!! $v->content !!}
                         </p>
                         <div class="detail-operate">
@@ -74,7 +74,7 @@
             var str = "";
             for (var i = 0; i < d.length; i++) {
                 str += "<div class='item-detail'><div class='title'>" + d[i].title +
-                    "</div><p class='overflow-clip-3'><span>摘要：</span>" + d[i].content +
+                    "</div><p class='overflow-clip overflow-clip-2'><span>摘要：</span>" + d[i].content +
                     "</p><div class='detail-operate'><div data-id='d-" + s + "-" + d[i].id +
                     "'>删除</div><div class='add-btn' data-id='e-" + s + "-" + d[i].id +
                     "'>编辑</div><div data-id='i-" + s + "-" + d[i].id +

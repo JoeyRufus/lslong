@@ -17,14 +17,13 @@
             <li>
                 <div class="remove-site" data-website-id={{ $value->id }}><i class="fas fa-times-circle"></i>
                 </div>
-                <a href="{{ $value->url }}" onclick="WebClick({{ $value->id }})" target="_blank"
-                    title="{{ $value->description }}">
+                <a href="{{ $value->url }}" onclick="WebClick({{ $value->id }})" target="_blank" title="{{ $value->description }}">
                     <img src="{{ $value->icon_href }}" height="auto" width="auto">
                     <div class="url-info">
                         <div>
-                            <strong class="overflow-clip-1">{{ $value->title }}</strong>
+                            <strong class="overflow-clip">{{ $value->title }}</strong>
                         </div>
-                        <p class="overflow-clip-1">{{ $value->description }}</p>
+                        <p class="overflow-clip">{{ $value->description }}</p>
                     </div>
                 </a>
             </li>
@@ -35,8 +34,7 @@
         <li class="li-placeholder"></li>
     </ul>
     <!-- weisite add Modal -->
-    <div class="modal fade " id="websiteAdd" data-bs-keyboard="false" tabindex="-1" aria-labelledby="websiteAddLabel"
-        aria-hidden="true">
+    <div class="modal fade " id="websiteAdd" data-bs-keyboard="false" tabindex="-1" aria-labelledby="websiteAddLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,8 +92,8 @@
                     "><i class='fas fa-times-circle'></i></div><a href='" + d[i].url +
                     "' onclick='WebClick(" + d[i].id + ")' target='_blank' title='" + d[i].description +
                     "'><img src='" + d[i].icon_href +
-                    "' height='auto' width='auto'><div class='url-info'><div><strong class='overflow-clip-1'>" +
-                    d[i].title + "</strong></div><p class='overflow-clip-1'>" + d[i].description +
+                    "' height='auto' width='auto'><div class='url-info'><div><strong class='overflow-clip'>" +
+                    d[i].title + "</strong></div><p class='overflow-clip'>" + d[i].description +
                     "</p></div></a></li>"
             }
             str +=

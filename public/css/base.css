@@ -62,8 +62,8 @@ body {
 }
 
 
-/* 单行文本省略 */
-.overflow-clip-1 {
+/* 文本省略 */
+.overflow-clip {
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
@@ -73,16 +73,12 @@ body {
     -webkit-box-orient: vertical;
 }
 
-
+.overflow-clip-2 {
+    -webkit-line-clamp: 2 !important;
+}
 
 .overflow-clip-3 {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    word-break: break-all;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3 !important;
 }
 
 /* 排除bootstrap干扰 */
