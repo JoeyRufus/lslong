@@ -36,20 +36,22 @@
 </div>
 <script>
     $('.search').blur(function() {
-        var url = '/blog/search/' + $(this).val();
-        $.get(url, function(d) {
-            var str = "";
-            for (var i = 0; i < d.length; i++) {
-                str += "<div class='item-detail'><div class='title'>" + d[i].title +
-                    "</div><p class='overflow-clip overflow-clip-2'><span>摘要：</span>" + d[i].content +
-                    "<div class='detail-operate'><div data-id='d-blog-" + d[i].id +
-                    "'>删除</div><div class='add-btn' data-id='e-blog-" + d[i].id +
-                    "'>编辑</div><div data-id='i-blog-" + d[i].id +
-                    "'>详情</div><span>" + d[i].updated_at + "</span></div></div>"
-            }
-            $('.pagination').html('');
-            $('#mainContent').html(str);
-        })
+        if ($(this).val()) {
+            var url = '/blog/search/' + $(this).val();
+            $.get(url, function(d) {
+                var str = "";
+                for (var i = 0; i < d.length; i++) {
+                    str += "<div class='item-detail'><div class='title'>" + d[i].title +
+                        "</div><p class='overflow-clip overflow-clip-2'><span>摘要：</span>" + d[i].content +
+                        "<div class='detail-operate'><div data-id='d-blog-" + d[i].id +
+                        "'>删除</div><div class='add-btn' data-id='e-blog-" + d[i].id +
+                        "'>编辑</div><div data-id='i-blog-" + d[i].id +
+                        "'>详情</div><span>" + d[i].updated_at + "</span></div></div>"
+                }
+                $('.pagination').html('');
+                $('#mainContent').html(str);
+            })
+        }
     })
 
     $('.last-items li').click(function() {

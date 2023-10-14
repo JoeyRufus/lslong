@@ -24,9 +24,9 @@
 </head>
 
 <body>
-    <div class="container-xxl">
+    @include('tinymce')
+    <div class="container-fluid">
         @include('website')
-        @include('tinymce')
         <div id="main" class="row">
             @include('sideBar')
             <div class="col-4 shadow-sm">

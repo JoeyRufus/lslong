@@ -141,11 +141,16 @@
 
 /* tinymce wrap */
 .tinymce {
+    position: absolute;
     display: none;
-    padding: 5px;
+    padding: 25px;
     margin: 0 auto;
     border-radius: 10px;
     max-width: 900px;
+    background-color: #eee;
+    top: 5px;
+    left: 0;
+    z-index: 9;
 }
 
 .label-list {

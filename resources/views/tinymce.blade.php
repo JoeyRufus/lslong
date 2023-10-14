@@ -131,14 +131,24 @@
         $("input[name='label']").val($("input[name='label']").val() + $(this).text() + '|')
     })
 
-    function MceShow() {
-        $('.tinymce').slideDown();
-        var h = $('.website').height();
-        h = h + 20;
-        setTimeout(() => {
-            window.scrollTo(0, h);
-        }, 250);
+    function McePosition() {
+        var w = $(window).width();
+        var left = (w - 900) * 0.5;
+        left = left > 0 ? left : 0;
+        $('.tinymce').css({
+            'left': left,
+            'top': $(document).scrollTop()
+        });
     }
+    McePosition();
+    $(window).resize(McePosition);
+    $(document).scroll(McePosition);
+
+    function MceShow() {
+
+        $('.tinymce').fadeIn();
+    }
+
 
     function MceHide() {
         $('.tinymce').slideUp();

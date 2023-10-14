@@ -1,4 +1,4 @@
-<div id="header" class="website">
+<div id="header" class="website row">
     <div class="operate-box">
         <div>导入</div>
         <div>导出</div>
@@ -28,6 +28,8 @@
                 </a>
             </li>
         @endforeach
+        <li class="li-placeholder"></li>
+        <li class="li-placeholder"></li>
         <li class="li-placeholder"></li>
         <li class="li-placeholder"></li>
         <li class="li-placeholder"></li>
@@ -96,8 +98,9 @@
                     d[i].title + "</strong></div><p class='overflow-clip'>" + d[i].description +
                     "</p></div></a></li>"
             }
-            str +=
-                "<li class='li-placeholder'></li><li class='li-placeholder'></li><li class='li-placeholder'></li><li class='li-placeholder'></li>"
+            for (var i = 1; i <= 6; i++) {
+                str += "<li class='li-placeholder'>";
+            }
             $('.website-items').html(str);
         })
     })
