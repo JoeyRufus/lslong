@@ -14,7 +14,7 @@ class Index extends Controller
     public function getIndexInfo()
     {
         $website_ctgr = WebsiteCtgrModel::get();
-        $website = WebsiteModel::orderBy('click_count', 'desc')->limit(10)->get();
+        $website = WebsiteModel::orderBy('click_count', 'desc')->limit(14)->get();
         // 主体list
         $blog = Blog::getBlogAll();
         $blog_ctgr = BlogCtgrModel::withCount('blog')->get();

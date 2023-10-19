@@ -6,8 +6,8 @@
         <div type="button" data-bs-toggle="modal" data-bs-target="#websiteAdd">添加</div>
     </div>
     <ul class="website-menu">
-        <li data-id='-1' class="active">最常使用</li>
-        <li data-id='0'>最近使用</li>
+        <li data-id='click_count' class="active">最常使用</li>
+        <li data-id='updated_at'>最近使用</li>
         @foreach ($website_ctgr as $val)
             <li data-id={{ $val->id }}>{{ $val->title }}</li>
         @endforeach
@@ -122,8 +122,8 @@
     $("input[name='url']").blur(function() {
         if (this.value) {
             var url = this.value;
-            url = url.split('/');
-            url = url.length == 4 ? url[2] : url[0];
+            url = url.replace('https://', '');
+            url = url.replace('http://', '');
             $.get('/website/getinfo/' + url, function(d) {
                 $("input[name='title']").val(d.title);
                 $("textarea[name='description']").val(d.description);

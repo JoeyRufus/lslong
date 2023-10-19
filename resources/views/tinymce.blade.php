@@ -27,7 +27,7 @@
         </div>
     </form>
     <div class="hide">
-        <div class="blog_genre_option">
+        <div class="blog-genre-option">
             <label class="form-label">分类</label>
             <input type="text" name='tiny_genre' class="form-control" list="tinyBrowsers" required>
             <datalist id="tinyBrowsers">
@@ -36,8 +36,8 @@
                 @endforeach
             </datalist>
         </div>
-        <div class="exp_label">
-            <label class='form-label'>标签</label><input type='text' name='label' class='form-control' required>
+        <div class="exp-label">
+            <label class='form-label'>标签</label><input type='text' name='label' class='form-control' placeholder="Label1|Label2" required>
             <div class='label-list'>
                 @foreach ($exp_label as $v)
                     <div>{{ $v->title }}</div>
@@ -66,7 +66,7 @@
         plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media  codesample table charmap pagebreak nonbreaking  insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
         toolbar: "undo redo | hr accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview  | pagebreak  codesample",
         toolbar_mode: 'wrap',
-        height: 620,
+        height: 550,
         codesample_languages: [{
             text: 'HTML/XML',
             value: 'markup'
@@ -167,10 +167,10 @@
     }
 
     function BlogHtml() {
-        $('.label-genre').html($('.blog_genre_option').html());
+        $('.label-genre').html($('.blog-genre-option').html());
     }
 
     function ExpHtml() {
-        $('.label-genre').html($('.exp_label').html());
+        $('.label-genre').html($('.exp-label').html());
     }
 </script>

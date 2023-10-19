@@ -11,12 +11,7 @@ class Experience extends Controller
     public function store(Request $request)
     {
         $data = $request->post();
-        $label = explode('|', $data['label']);
-        $label = array_filter($label);
-        foreach ($label as $v) {
-            $R = ExperienceLabelModel::firstOrCreate(['title' => $v]);
-            $label_id[] = $R->id;
-        }
+        $label_id = self::StoreLabel($data['label']);
         $experience = ExperienceModel::create($data);
         $experience->experienceLabel()->sync($label_id);
         return response()->json([
@@ -24,15 +19,11 @@ class Experience extends Controller
             'msg' => '添加成功~',
         ]);
     }
+
     public function update(Request $request)
     {
         $data = $request->post();
-        $label = explode('|', $data['label']);
-        $label = array_filter($label);
-        foreach ($label as $v) {
-            $R = ExperienceLabelModel::firstOrCreate(['title' => $v]);
-            $label_id[] = $R->id;
-        }
+        $label_id = self::StoreLabel($data['label']);
         $experience = ExperienceModel::updateOrCreate(['id' => $data['id']], [
             'title' => $data['title'],
             'content' => $data['content'],
@@ -42,16 +33,23 @@ class Experience extends Controller
             'code' => '200',
             'msg' => '更新成功~',
         ]);
-
     }
+
+    public function StoreLabel($label)
+    {
+        $label = explode('|', $label);
+        $label = array_filter($label);
+        foreach ($label as $v) {
+            $R = ExperienceLabelModel::firstOrCreate(['title' => $v]);
+            $label_id[] = $R->id;
+        }
+        return $label_id;
+    }
+
     public function getExpByLabel($labelId, $page = 1)
     {
 
         if ($labelId) {
-            /* $label = ExperienceLabelModel::with(['experience' => function ($q) {
-            $q->orderBy('updated_at', 'desc');
-            }])->find($labelId);
-            $exp = $label->experience; */
             $label = ExperienceLabelModel::with(['experience' => function ($q) {
                 $q->orderBy('updated_at', 'desc');
             }])->find($labelId);

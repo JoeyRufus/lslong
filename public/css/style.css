@@ -166,6 +166,10 @@
     cursor: pointer;
 }
 
+.label-genre input::placeholder {
+    color: #ddd;
+}
+
 .mce-modal {
     display: inline-block;
     padding: 2px 5px;

@@ -18,9 +18,9 @@ Route::post('check', 'User@check');
 Route::middleware('checkLogin')->group(function () {
     Route::get('/', 'Index@getIndexInfo');
     Route::prefix('/website')->group(function () {
-        Route::get('/getinfo/{url}', 'Website@get_siteurl_curlinfo');
+        Route::get('/getinfo/{url}', 'Website@getUrlInfo');
         Route::post('/store', 'Website@store');
-        Route::get('/list/{genre_id}', 'Website@getWebsiteByGenre');
+        Route::get('/list/{genre_id}', 'Website@getWebsite');
         Route::get('/click/{id}', 'Website@clickInc');
         Route::get('/delete/{id}', 'Website@del');
     });
