@@ -5,157 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @include('z-head')
-    <link rel="stylesheet" href="/css/plugins/toastr/toastr.min.css">
-    <link rel="stylesheet" href="/css/prism.css">
-    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/js/plugins/validate/messages_zh.js"></script>
-    <script src="/js/plugins/toastr/toastr.min.js"></script>
-    <script src="/js/tinymce.min.js"></script>
-    <script src="/js/prism.js"></script>
+    @include('z-head', ['css' => 'exp&blog', 'prism' => true, 'toastr' => true, 'validate' => true])
     <title>经历</title>
-    <style>
-        /* 左侧分类栏 */
-        .last,
-        .label {
-            margin: 20px 0;
-            background: rgba(255, 255, 255, .7);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .last span {
-            cursor: pointer;
-        }
-
-        .last a {
-            display: block;
-        }
-
-        .side p {
-            border-bottom: 1px solid;
-        }
-
-        .label-panel {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .label-panel div:nth-child(9n) {
-            background-color: #4A4A4A;
-        }
-
-        .label-panel div:nth-child(9n+1) {
-            background-color: #428BCA;
-        }
-
-        .label-panel div:nth-child(9n+2) {
-            background-color: #5CB85C;
-        }
-
-        .label-panel div:nth-child(9n+3) {
-            background-color: #D9534F;
-        }
-
-        .label-panel div:nth-child(9n+4) {
-            background-color: #567E95;
-        }
-
-        .label-panel div:nth-child(9n+5) {
-            background-color: #B433FF;
-        }
-
-        .label-panel div:nth-child(9n+6) {
-            background-color: #00ABA9;
-        }
-
-        .label-panel div:nth-child(9n+7) {
-            background-color: #B37333;
-        }
-
-        .label-panel div:nth-child(9n+8) {
-            background-color: #FF6600;
-        }
-
-        .label-panel div {
-            border: 1px solid;
-            cursor: pointer;
-            opacity: 0.50;
-            color: #fff;
-            display: inline-block;
-            margin: 0 5px 5px 0;
-            padding: 0 6px;
-            line-height: 30px;
-        }
-
-        .label-panel div:hover {
-            opacity: 1;
-            filter: alpha(opacity=100);
-        }
-
-        .label-panel .active {
-            opacity: 1;
-            filter: alpha(opacity=100);
-        }
-
-        /* 主体列表 */
-        .page {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .page span {
-            border: 1px solid;
-            border-radius: 5px;
-            padding: 5px 10px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .page .active {
-            background: #f1404b;
-            color: #fff;
-        }
-
-        .page span:hover {
-            background: #f1404b;
-            color: #fff;
-        }
-
-        .main-panel {
-            background: rgba(255, 255, 255, .7);
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .detail {
-            border-bottom: 1px dashed;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .detail:last-child {
-            border: none;
-        }
-
-        .operate {
-            display: flex;
-            flex-direction: row-reverse;
-        }
-
-        .operate a {
-            border: 1px solid;
-            padding: 2px 8px;
-            margin-left: 10px;
-            border-radius: 8px;
-        }
-
-        .operate span {
-            line-height: 25px;
-        }
-    </style>
 </head>
 
 <body>
@@ -235,7 +86,7 @@
             str += "<span>" + i + "</span>"
         }
         $('.page').html(str);
-        console.log($('.page').data('labelid'));
+        $(this).addClass('active').siblings().removeClass('active');
     })
 
     function GetExp(labelId, page = 1) {

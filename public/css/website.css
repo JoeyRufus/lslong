@@ -1,0 +1,92 @@
+body {
+    background-image: url('/images/web-bg.jpg');
+}
+
+.operate {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    font-size: 2rem;
+    width: 30px;
+    text-align: center;
+    color: #eee;
+}
+
+.operate i {
+    cursor: pointer;
+}
+
+.menu {
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    width: 100%;
+    display: flex;
+    padding: 5px 0;
+    justify-content: space-evenly;
+    color: #fff;
+}
+
+.menu div {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.menu div:hover {
+    background: #f1404b;
+}
+
+.panel {
+    margin-top: 20px;
+    background: rgba(0, 0, 0, .2);
+    padding: 5px 5px 30px;
+    border-radius: 10px;
+}
+
+.sites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.site-placeholder {
+    width: 250px;
+    height: 0;
+}
+
+.site {
+    width: 250px;
+    margin-top: 15px;
+    position: relative;
+}
+
+.site a {
+    display: flex;
+    padding: 15px;
+    background: rgba(255, 255, 255, .7);
+    border-radius: 5px;
+}
+
+.site img {
+    width: 20%;
+}
+
+.site i {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #f1404b;
+    display: none;
+}
+
+.url-info {
+    padding-left: 10px;
+    width: 80%;
+}
+
+.url-info strong {
+    line-height: 25px;
+}

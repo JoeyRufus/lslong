@@ -5,79 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @include('z-head')
+    @include('z-head', ['css' => 'home'])
     <title>主页</title>
 </head>
-<style>
-    .sites {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-    }
-
-    .site {
-        width: 250px;
-        margin-bottom: 15px;
-    }
-
-    .site a {
-        display: flex;
-        padding: 15px;
-        color: #333;
-        background: rgba(255, 255, 255, .7);
-        border-radius: 5px;
-    }
-
-    .site a span {
-        color: #999;
-    }
-
-    .site-placeholder {
-        width: 250px;
-        height: 0;
-    }
-
-    .site img {
-        width: 20%;
-    }
-
-    .url-info {
-        padding-left: 10px;
-        width: 80%;
-    }
-
-    .url-info strong {
-        line-height: 23px;
-    }
-
-    .main>div {
-        background: rgba(0, 0, 0, .2);
-        color: #FFF;
-        margin-bottom: 20px;
-        padding: 10px;
-        border-radius: 10px;
-    }
-
-    .main .title {
-        position: relative;
-    }
-
-    .main .title a {
-        color: #FFF;
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
-    .blog a,
-    .exp a {
-        color: #FFF;
-    }
-
-    .detail {
-        padding: 0 30px;
-    }
-</style>
 
 <body>
     @include('z-leftMenu')
@@ -126,5 +56,10 @@
         </div>
     </div>
 </body>
+<script>
+    function WebClick(id) {
+        $.get('/website/click/' + id);
+    }
+</script>
 
 </html>

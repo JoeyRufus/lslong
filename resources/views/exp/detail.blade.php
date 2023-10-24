@@ -5,25 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @include('z-head')
-    <link rel="stylesheet" href="/css/prism.css">
-    <script src="/js/prism.js"></script>
+    @include('z-head', ['prism' => true])
     <title>{{ $exp->title }}</title>
     <style>
-        .exp-content {
-            overflow: hidden;
+        .main {
+            max-width: 1200px;
+            padding: 0 15px;
+            margin: 30px auto;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, .5);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .post-desc {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 
 <body>
     @include('z-leftMenu')
-    <div class="container-xl">
-        <p>{{ $exp->title }}</p>
-        <div class="exp-content">
+    <div class="main">
+        <h3>{{ $exp->title }}</h3>
+        <div class="content">
             {!! $exp->content !!}
         </div>
-        <p>{{ $exp->label }} post - {{ $exp->updated_at }}</p>
+        <div class="post-desc"><span>{{ $exp->label }}</span> <span>posted:{{ $exp->updated_at }}</span></div>
     </div>
 </body>
 

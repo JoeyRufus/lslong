@@ -5,6 +5,7 @@
         display: none;
         position: absolute;
         background: #eee;
+        border-radius: 15px;
     }
 
     .label-list {
@@ -18,6 +19,23 @@
         border-radius: 5px;
         margin: 5px 3px 0;
         cursor: pointer;
+    }
+
+    .modal-panel {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .mce-modal {
+        border: 1px solid;
+        padding: 2px 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .mce-modal:hover {
+        color: #fff;
+        background: #f1404b;
     }
 </style>
 <div class="tinymce shadow">
@@ -49,7 +67,7 @@
             <label class="form-label">内容</label>
             <textarea name="content" class="form-control" id="myTextarea"></textarea>
         </div>
-        <div class="col-12">
+        <div class="col-12 modal-panel">
             <div class="mce-modal" data-modal="modal-1">问题-原因-方案</div>
         </div>
         <div class="col-4 offset-8">
@@ -71,15 +89,19 @@
         </div>
     </div>
 </div>
+<script src="/js/tinymce.min.js"></script>
 <script>
     // tinymce插件配置
     tinymce.init({
         selector: '#myTextarea',
         language: 'zh-Hans',
         menubar: false,
-        plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media  codesample table charmap pagebreak nonbreaking  insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
-        toolbar: "undo redo | hr accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview  | pagebreak  codesample",
+        /* plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media  codesample table charmap pagebreak nonbreaking  insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion', */
+        plugins: 'accordion link image table media code fullscreen preview codesample',
+        toolbar: "blocks fontfamily fontsize forecolor backcolor removeformat | hr bold italic underline strikethrough  | align numlist bullist | codesample accordion link image table media | code fullscreen preview",
+        /* toolbar: "undo redo | hr accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview  | pagebreak  codesample", */
         toolbar_mode: 'wrap',
+        height: 550,
         codesample_languages: [{
             text: 'HTML/XML',
             value: 'markup'
@@ -124,7 +146,6 @@
             url += $("input[name='id']").val() ? '/update' : '/store';
             $.post(url, $('#tinyForm').serializeArray(), function(d) {
                 toastr.success(d.msg, d.code);
-                // $('#tinyForm').get(0).reset();
                 setTimeout(function() {
                     window.location.reload();
                 }, 1000)
@@ -142,7 +163,7 @@
         left = left > 0 ? left : 0;
         $('.tinymce').css({
             'left': left,
-            'top': $(document).scrollTop()
+            'top': $(document).scrollTop() + 10
         });
     }
     McePosition();
