@@ -13,6 +13,6 @@ class WebsiteCtgrModel extends Model
 
     public function website()
     {
-        return $this->hasMany('App\Model\WebsiteModel', 'website_ctgr_id');
+        return $this->hasMany('App\Models\WebsiteModel', 'website_ctgr_id');
     }
 }

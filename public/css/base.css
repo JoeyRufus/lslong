@@ -21,13 +21,10 @@ button {
 }
 
 a {
-    color: #666;
+    color: #333;
     text-decoration: none
 }
 
-a:hover {
-    color: #c81623
-}
 
 button,
 input {
@@ -42,9 +39,15 @@ input {
 body {
     /* CSS3 抗锯齿形 让文字显示的更加清晰 */
     -webkit-font-smoothing: antialiased;
-    background-color: #fff;
     font: 14px Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
-    color: #666
+    background-image: url('/images/blog-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .hide,
@@ -79,15 +82,6 @@ body {
 
 .overflow-clip-3 {
     -webkit-line-clamp: 3 !important;
-}
-
-/* 排除bootstrap干扰 */
-p {
-    margin-bottom: 0;
-}
-
-ul {
-    padding: 0
 }
 
 /* tinymce  */

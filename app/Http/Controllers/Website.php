@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class Website extends Controller
 {
+    public function index()
+    {
+        $website = WebsiteCtgrModel::with('website')->get();
+
+        return view('website.index', ['website' => $website]);
+    }
     // 数据保存
     public function store(Request $request)
     {
@@ -31,6 +37,7 @@ class Website extends Controller
     {
         WebsiteModel::where('id', $id)->increment('click_count');
     }
+
     // 根据分类ID获取web数
     public function getWebsite($genre)
     {
@@ -94,9 +101,9 @@ class Website extends Controller
         preg_match('/<LINK\s+rel="shortcut\sicon"\s+href="([\w\W]*?)"/si', $output, $matches);
         if (!empty($matches[1])) {
             $page_info['icon_href'] = $matches[1];
-            if (strpos($matches[1], 'http') === false) {
-                $page_info['icon_href'] = "https://api.iowen.cn/favicon/" . $url . ".png";
-            }
+        }
+        if (strpos($page_info['icon_href'], 'http') === false) {
+            $page_info['icon_href'] = "https://api.iowen.cn/favicon/" . $url . ".png";
         }
         // Description
         preg_match('/<META\s+name="description"\s+content="([\w\W]*?)"/si', $output, $matches);

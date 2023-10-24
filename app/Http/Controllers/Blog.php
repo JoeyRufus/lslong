@@ -8,10 +8,19 @@ use Illuminate\Http\Request;
 
 class Blog extends Controller
 {
+    public function index()
+    {
+        $last = BlogModel::select('id', 'title')->orderBy('updated_at', 'desc')->limit(10)->get();
+        $ctgr = BlogCtgrModel::withCount('blog')->get();
+        $count = BlogModel::count();
+        $blog = self::getBlogAll();
+        return view('blog.index', ['count' => $count, 'last' => $last, 'blog' => $blog, 'genre' => $ctgr]);
+    }
+
     public function store(Request $request)
     {
         $data = $request->post();
-        $genre = BlogCtgrModel::firstOrCreate(['title' => $data['tiny_genre']]);
+        $genre = BlogCtgrModel::firstOrCreate(['title' => $data['genre']]);
         $data['blog_ctgr_id'] = $genre->id;
         $r = BlogModel::create($data);
         return response()->json([
@@ -23,7 +32,7 @@ class Blog extends Controller
     public function update(Request $request)
     {
         $data = $request->post();
-        $genre = BlogCtgrModel::firstOrCreate(['title' => $data['tiny_genre']]);
+        $genre = BlogCtgrModel::firstOrCreate(['title' => $data['genre']]);
         $blog = array(
             'title' => $data['title'],
             'content' => $data['content'],
@@ -35,6 +44,13 @@ class Blog extends Controller
             'msg' => '更新成功~',
         ]);
 
+    }
+
+    public function detail($id)
+    {
+        $blog = BlogModel::with('blogCtgr')->find($id);
+        $blog['genre'] = $blog->blogCtgr->title;
+        return view('blog.detail', ['blog' => $blog]);
     }
 
     public function del($id)
@@ -76,6 +92,8 @@ class Blog extends Controller
     {
         $i = 0;
         foreach ($blog as $v) {
+            /* $content = strip_tags($v->content);
+            $blog[$i]['content'] = substr($content, 0, 999); */
             $blog[$i]['content'] = strip_tags($v->content);
             $i++;
         }

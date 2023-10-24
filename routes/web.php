@@ -16,8 +16,9 @@ Route::view('/login', 'login');
 Route::post('check', 'User@check');
 
 Route::middleware('checkLogin')->group(function () {
-    Route::get('/', 'Index@getIndexInfo');
+    Route::get('/', 'Index@home');
     Route::prefix('/website')->group(function () {
+        Route::get('/', 'Website@index');
         Route::get('/getinfo/{url}', 'Website@getUrlInfo');
         Route::post('/store', 'Website@store');
         Route::get('/list/{genre_id}', 'Website@getWebsite');
@@ -25,6 +26,8 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('/delete/{id}', 'Website@del');
     });
     Route::prefix('/blog')->group(function () {
+        Route::get('/', 'Blog@index');
+        Route::get('/detail/{id}', 'Blog@detail');
         Route::post('/store', 'Blog@store');
         Route::post('/update', 'Blog@update');
         Route::get('/list/{id}/{page}', 'Blog@getBlogByGenre');
@@ -33,6 +36,8 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('/search/{title}', 'Blog@getBlogByTitle');
     });
     Route::prefix('/exp')->group(function () {
+        Route::get('/', 'Experience@index');
+        Route::get('/detail/{id}', 'Experience@detail');
         Route::post('/store', 'Experience@store');
         Route::post('/update', 'Experience@update');
         Route::get('/list/{id}/{page}', 'Experience@getExpByLabel');

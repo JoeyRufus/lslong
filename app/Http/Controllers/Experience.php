@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 
 class Experience extends Controller
 {
+    public function index()
+    {
+        $last = ExperienceModel::select('id', 'title')->orderBy('updated_at', 'desc')->limit(10)->get();
+        $label = ExperienceLabelModel::withCount('experience')->get();
+        $count = ExperienceModel::count();
+        $exp = self::getExpByLabel(0);
+        return view('exp.index', ['exp' => $exp, 'last' => $last, 'label' => $label, 'count' => $count]);
+    }
+    public function detail($id)
+    {
+        $exp = self::getExpById($id);
+        $exp['label'] = substr($exp['label'], 0, -1);
+        return view('exp.detail', ['exp' => $exp]);
+    }
     public function store(Request $request)
     {
         $data = $request->post();
