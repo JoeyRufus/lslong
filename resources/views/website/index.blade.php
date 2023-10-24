@@ -35,7 +35,7 @@
                                 <div class="site">
                                     <i class="fas fa-times-circle" data-id={{ $v->id }}></i>
                                     <a href="{{ $v->url }}" onclick="WebClick({{ $v->id }})" target="_blank" title="{{ $v->description }}">
-                                        <img src="{{ $v->icon_href }}" onerror="this.src='/images/error.jpg'" height="auto" width="auto">
+                                        <img src="{{ $v->icon_href }}" onerror="this.src='/images/error.jpg'">
                                         <div class="url-info">
                                             <strong class="overflow-clip">{{ $v->title }}</strong>
                                             <span class="overflow-clip">{{ $v->description }}</span>
@@ -98,17 +98,23 @@
 </body>
 <script>
     $('.menu div').click(function() {
-        var g = $(this).data('id');
-        var top = $('.' + g).offset().top;
+        var dom = $('.' + $(this).data('id'));
+        var top = dom.offset().top;
         top = top - 60;
         $("html,body").animate({
             scrollTop: top
-        }, 200);
+        }, 0);
+        setTimeout(function() {
+            dom.addClass('shake');
+        }, 200)
+        setTimeout(function() {
+            dom.removeClass('shake')
+        }, 800)
     })
     $('.r-top').click(function() {
         $("html,body").animate({
             scrollTop: 0
-        }, 200);
+        }, 0);
     })
     // 网站编辑按钮显示与隐藏
     $('.edit').click(function() {

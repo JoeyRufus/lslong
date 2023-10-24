@@ -65,9 +65,10 @@ body {
 
 .site a {
     display: flex;
+    height: 75px;
     padding: 15px;
     background: rgba(255, 255, 255, .7);
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .site img {
@@ -80,6 +81,7 @@ body {
     top: 0;
     color: #f1404b;
     display: none;
+    font-size: 1.2rem;
 }
 
 .url-info {
@@ -89,4 +91,36 @@ body {
 
 .url-info strong {
     line-height: 25px;
+}
+
+.shake {
+    animation: shake 800ms ease-in-out;
+}
+
+@keyframes shake {
+
+    /* 水平抖动，核心代码 */
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(+2px, 0, 0);
+    }
+
+    30%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(+4px, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(-4px, 0, 0);
+    }
 }
