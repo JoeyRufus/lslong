@@ -10,8 +10,9 @@ class Website extends Controller
 {
     public function index()
     {
-        $website = WebsiteCtgrModel::with('website')->get();
-
+        $website = WebsiteCtgrModel::with(['website' => function ($q) {
+            $q->orderBy('click_count', 'desc');
+        }])->get();
         return view('website.index', ['website' => $website]);
     }
     // 数据保存

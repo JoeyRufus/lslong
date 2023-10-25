@@ -9,7 +9,9 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
-
+@isset($echarts)
+    <script src="/js/echarts.min.js"></script>
+@endisset
 @isset($validate)
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/js/plugins/validate/messages_zh.js"></script>

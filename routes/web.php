@@ -45,4 +45,9 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('/delete/{id}', 'Experience@del');
 
     });
+    Route::prefix('/shop')->group(function () {
+        Route::get('/', 'Commodity@index');
+        Route::post('/store', 'Commodity@store');
+        Route::post('/update', 'Commodity@update');
+    });
 });
