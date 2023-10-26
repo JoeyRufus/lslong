@@ -67,9 +67,11 @@
             <label class="form-label">内容</label>
             <textarea name="content" class="form-control" id="myTextarea"></textarea>
         </div>
-        <div class="col-12 modal-panel">
-            <div class="mce-modal" data-modal="modal-1">问题-原因-方案</div>
-        </div>
+        @if ($status == 'blog')
+            <div class="col-12 modal-panel">
+                <div class="mce-modal" data-modal="modal-1">问题-原因-方案</div>
+            </div>
+        @endif
         <div class="col-4 offset-8">
             <button type="button" class="btn btn-secondary" onclick="MceHide()">取消</button>
             <button type="submit" class="btn btn-danger " id="mceBtn">确定</button>
@@ -77,13 +79,13 @@
     </form>
     <div class="hide">
         <div class="modal-1">
-            <p><span style="color: rgb(224, 62, 45); font-family: impact, sans-serif;"><strong><span style="font-size: 18pt;">问题：</span></strong></span></p>
+            <p><span style="color: rgb(224, 62, 45); font-family: impact, sans-serif;"><strong><span style="font-size: 18pt;">问题起因：</span></strong></span></p>
             <hr>
             <p>&nbsp;</p>
-            <p><span style="color: rgb(241, 196, 15);"><strong><span style="font-size: 18pt;">原因：</span></strong></span></p>
+            <p><span style="color: rgb(241, 196, 15);"><strong><span style="font-size: 18pt;">探索原理：</span></strong></span></p>
             <hr>
             <p>&nbsp;</p>
-            <p><span style="color: rgb(45, 194, 107);"><strong><span style="font-size: 18pt;">方案：</span></strong></span></p>
+            <p><span style="color: rgb(45, 194, 107);"><strong><span style="font-size: 18pt;">解决方案：</span></strong></span></p>
             <hr>
             <p>&nbsp;</p>
         </div>

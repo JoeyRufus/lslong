@@ -9,7 +9,7 @@ class Commodity extends Controller
 {
     public function index()
     {
-        $commodity = CommodityModel::get()->groupBy('genre');
+        $commodity = CommodityModel::orderBy('title')->get()->groupBy('genre');
         return view('shop.index', ['commodity' => $commodity]);
     }
     public function store(Request $request)
@@ -27,6 +27,7 @@ class Commodity extends Controller
             'price' => $data['price'],
             'max' => $data['max'],
             'min' => $data['min'],
+            'unit_price' => $data['unit_price'],
         ];
         $r = CommodityModel::where('id', $data['id'])->update($array);
         return response()->json([

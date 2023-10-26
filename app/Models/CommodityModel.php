@@ -9,5 +9,5 @@ class CommodityModel extends Model
 {
     use HasFactory;
     protected $table = 'commodity';
-    protected $fillable = ['title', 'genre', 'mark', 'price', 'weight', 'min', 'max'];
+    protected $fillable = ['title', 'genre', 'mark', 'price', 'weight', 'min', 'max', 'unit_price'];
 }

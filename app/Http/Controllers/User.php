@@ -18,7 +18,7 @@ class User extends Controller
         } else {
             return response()->json([
                 'code' => '500',
-                'msg' => '登录信息错误~'
+                'msg' => '登录信息错误~',
             ]);
         }
     }

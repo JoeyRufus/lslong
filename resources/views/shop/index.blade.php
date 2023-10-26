@@ -18,9 +18,10 @@
         }
 
         .my-card-wrapper {
-            -moz-column-count: 3;
-            -webkit-column-count: 3;
-            column-count: 3;
+            -moz-column-count: 2;
+            -webkit-column-count: 2;
+            column-count: 2;
+            column-fill: balance;
             -moz-column-gap: 0;
             -webkit-column-gap: 0;
         }
@@ -47,10 +48,19 @@
         .commodity {
             border-bottom: 1px dashed;
             margin-bottom: 10px;
+            position: relative;
         }
 
         .commodity:last-child {
             border-bottom: none;
+        }
+
+        .commodity>i {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
         .info i {
@@ -59,16 +69,7 @@
         }
 
         .history-price {
-            position: relative;
             margin-bottom: 5px;
-        }
-
-        .history-price i {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            font-size: 1.2rem;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -84,14 +85,15 @@
                         <h3>{{ $val['0']->genre }}</h3>
                         @foreach ($val as $v)
                             <div class="commodity">
-                                <div class="info row"><span class="col-3">{{ $v->title }}<i>{{ $v->mark }}</i></span> <span
-                                        class="col-3">{{ $v->weight }}</span>
-                                    <span class="col-3">min:{{ $v->min }}</span> <span class="col-3">max:{{ $v->max }}</span>
+                                <div class="info row"><span class="col-4">{{ $v->title }}<i>{{ $v->mark }}</i></span>
+                                    <span class="col-4">{{ $v->weight }}</span> <span class="col-4">单价:{{ $v->unit_price }}</span>
                                 </div>
-                                <div class="history-price">历史价格: {{ $v->price }}
-                                    <i class="fas fa-plus add-price" data-id="{{ $v->id }}" data-v="{{ $v->price }}" data-min="{{ $v->min }}"
-                                        data-max="{{ $v->max }}"></i>
+                                <div class="history-price row">
+                                    <span class="col-4">min:{{ $v->min }}</span><span class="col-4">max:{{ $v->max }}</span>
+                                    <span class="col-4">历史价格:{{ $v->price }}</span>
                                 </div>
+                                <i class="fas fa-plus add-price" data-id="{{ $v->id }}" data-v="{{ $v->price }}" data-min="{{ $v->min }}"
+                                    data-weight="{{ $v->weight }}" data-unit_price="{{ $v->unit_price }}" data-max="{{ $v->max }}"></i>
                             </div>
                         @endforeach
                     </div>
@@ -122,6 +124,8 @@
                                 <option value="酒饮">酒饮</option>
                                 <option value="调味">调味</option>
                                 <option value="肉蛋">肉蛋</option>
+                                <option value="水产">水产</option>
+                                <option value="百货">百货</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -142,6 +146,7 @@
                             <input type="text" class="form-control" name="price" required>
                             <input type="hidden" name="min">
                             <input type="hidden" name="max">
+                            <input type="hidden" name="unit_price">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
@@ -156,19 +161,42 @@
 <script>
     $('.add-price').click(function() {
         var price = prompt("输入价格:");
-        var com = $(this).data();
-        $.post('/shop/update', {
-            '_token': '{{ csrf_token() }}',
-            'id': com.id,
-            'price': com.v + '、' + price,
-            'max': com.max > price ? com.max : price,
-            'min': com.min > price ? price : com.min
-        }, function(m) {
-            toastr.success(m.msg);
-            setTimeout(function() {
-                window.location.reload();
-            }, 1000)
-        })
+        if (price) {
+            var com = $(this).data();
+            var unit_price = com.unit_price;
+            if (com.min > price) {
+                com.min = price;
+                var arr = [];
+                var w = com.weight;
+                if (w.indexOf('*') > 0) {
+                    arr = w.split('*');
+                    var m = Number(arr[1]);
+                    unit_price = Math.trunc(price / m * 100) / 100;
+                } else {
+                    arr = w.split('-');
+                    if (arr[0].indexOf('kg') > 0) {
+                        w = arr[0].replace('kg', '');
+                        w = w * 1000;
+                    } else {
+                        w = arr[0].replace('g', '');
+                    }
+                    unit_price = Math.trunc(price / w * 50000) / 100;
+                }
+            }
+            $.post('/shop/update', {
+                '_token': '{{ csrf_token() }}',
+                'id': com.id,
+                'price': com.v + '、' + price,
+                'max': com.max > price ? com.max : price,
+                'min': com.min,
+                'unit_price': unit_price
+            }, function(d) {
+                toastr.success(d.msg);
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000)
+            })
+        }
     })
     $('.status').click(function() {
         var s = $(this).text();
@@ -181,24 +209,32 @@
     $('#commodityForm').validate({
         submitHandler: function(form) {
             event.preventDefault();
-            var weight = ''
+            var weight = '';
+            var unit_price = '';
             var f = $('.w-first').val();
             var l = $('.w-last').val();
             var price = $("input[name='price']").val();
             if ($('.status').text() == '*') {
                 weight = f + 'g * ' + l;
+                unit_price = Math.trunc(price / l * 100) / 100;
             } else {
+                unit_price = Math.trunc(price / f * 50000) / 100;
                 if (f >= 1000) {
                     f = f / 1000;
-                    weight = l ? f + 'g - ' + l + 'g' : f + 'kg';
+                    if (l) {
+                        l = l / 1000;
+                        weight = f + 'kg - ' + l + 'kg';
+                    } else {
+                        weight = f + 'kg';
+                    }
                 } else {
                     weight = l ? f + 'g - ' + l + 'g' : f + 'g';
                 }
-
             }
             $("input[name='weight']").val(weight);
             $("input[name='min']").val(price);
             $("input[name='max']").val(price);
+            $("input[name='unit_price']").val(unit_price);
             $.post('/shop/store', $('#commodityForm').serializeArray(), function(d) {
                 if (d.code == 200) {
                     toastr.success(d.msg);
