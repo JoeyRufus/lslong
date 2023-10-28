@@ -39,16 +39,6 @@ class Website extends Controller
         WebsiteModel::where('id', $id)->increment('click_count');
     }
 
-    // 根据分类ID获取web数
-    public function getWebsite($genre)
-    {
-        if (is_numeric($genre)) {
-            $website = WebsiteModel::getWebsiteByGenre($genre);
-        } else {
-            $website = WebsiteModel::getWebsiteByRule($genre);
-        }
-        return $website;
-    }
     // 通过URL获取网页标题、图标、描述
     public function getUrlInfo($url)
     {

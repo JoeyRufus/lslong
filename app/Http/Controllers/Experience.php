@@ -16,12 +16,14 @@ class Experience extends Controller
         $exp = self::getExpByLabel(0);
         return view('exp.index', ['exp' => $exp, 'last' => $last, 'label' => $label, 'count' => $count]);
     }
+
     public function detail($id)
     {
         $exp = self::getExpById($id);
         $exp['label'] = substr($exp['label'], 0, -1);
         return view('exp.detail', ['exp' => $exp]);
     }
+
     public function store(Request $request)
     {
         $data = $request->post();
@@ -49,6 +51,13 @@ class Experience extends Controller
         ]);
     }
 
+    public function del($id)
+    {
+        $exp = ExperienceModel::find($id);
+        $exp->experienceLabel()->detach();
+        ExperienceModel::destroy($id);
+    }
+    // 上传label
     public function StoreLabel($label)
     {
         $label = explode('|', $label);
@@ -59,7 +68,7 @@ class Experience extends Controller
         }
         return $label_id;
     }
-
+    // 通过标签获取数据
     public function getExpByLabel($labelId, $page = 1)
     {
 
@@ -79,7 +88,7 @@ class Experience extends Controller
         }
         return $exp;
     }
-
+    // 通过ID获取数据
     public function getExpById($id)
     {
         $exp = ExperienceModel::with('experienceLabel')->find($id);
@@ -91,10 +100,4 @@ class Experience extends Controller
         return $exp;
     }
 
-    public function del($id)
-    {
-        $exp = ExperienceModel::find($id);
-        $exp->experienceLabel()->detach();
-        ExperienceModel::destroy($id);
-    }
 }

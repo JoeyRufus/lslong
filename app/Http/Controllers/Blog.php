@@ -57,13 +57,13 @@ class Blog extends Controller
     {
         BlogModel::destroy($id);
     }
-
+    // 按照分页获取数据
     public function getBlogAll($page = 1)
     {
         $blog = BlogModel::orderBy('updated_at', 'desc')->paginate(10, ['*'], 'page', $page);
         return Blog::ManageBlogContent($blog);
     }
-
+    // 点击左侧菜单栏时切换
     public function getBlogByGenre($genreId, $page = 1)
     {
         if ($genreId) {
@@ -74,26 +74,24 @@ class Blog extends Controller
         }
 
     }
-
+    // 编辑时通过id获取数据
     public function getBlogById($id)
     {
         $blog = BlogModel::with('blogCtgr')->find($id);
         $blog['genre'] = $blog->blogCtgr->title;
         return $blog;
     }
-
+    // 根据title搜索获取数据
     public function getBlogByTitle($title, $page = 1)
     {
         $blog = BlogModel::where('title', 'like', "%$title%")->get();
         return Blog::ManageBlogContent($blog);
     }
-
+    // 处理数据显示摘要
     public function ManageBlogContent($blog)
     {
         $i = 0;
         foreach ($blog as $v) {
-            /* $content = strip_tags($v->content);
-            $blog[$i]['content'] = substr($content, 0, 999); */
             $blog[$i]['content'] = strip_tags($v->content);
             $i++;
         }

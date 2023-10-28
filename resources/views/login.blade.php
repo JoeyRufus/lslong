@@ -42,6 +42,7 @@
     function PostInfo() {
         event.preventDefault();
         var password = $("input[name='password']").val().trim();
+        var path = "{!! session('path') !!}";
         password = $.md5(password);
         $.post('/check', {
             '_token': '{{ csrf_token() }}',
@@ -50,7 +51,11 @@
             if (d.code == 200) {
                 toastr.success(d.msg, d.code);
                 setTimeout(function() {
-                    window.location.href = "/{!! session('path') !!}";
+                    if (path == '/' && path == '')
+                        path = "/";
+                    else
+                        path = '/' + path;
+                    window.location.href = path;
                 }, 1000)
             } else {
                 toastr.error(d.msg, d.code);

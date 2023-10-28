@@ -20,7 +20,7 @@
         .my-card-wrapper {
             -moz-column-count: 2;
             -webkit-column-count: 2;
-            column-count: 2;
+            column-count: 3;
             column-fill: balance;
             -moz-column-gap: 0;
             -webkit-column-gap: 0;
@@ -68,8 +68,8 @@
             color: #f1404b;
         }
 
-        .history-price {
-            margin-bottom: 5px;
+        .info span {
+            padding-bottom: 5px;
         }
     </style>
 </head>
@@ -85,12 +85,13 @@
                         <h3>{{ $val['0']->genre }}</h3>
                         @foreach ($val as $v)
                             <div class="commodity">
-                                <div class="info row"><span class="col-4">{{ $v->title }}<i>{{ $v->mark }}</i></span>
-                                    <span class="col-4">{{ $v->weight }}</span> <span class="col-4">单价:{{ $v->unit_price }}</span>
-                                </div>
-                                <div class="history-price row">
-                                    <span class="col-4">min:{{ $v->min }}</span><span class="col-4">max:{{ $v->max }}</span>
-                                    <span class="col-4">历史价格:{{ $v->price }}</span>
+                                <div class="info row">
+                                    <span class="col-4">{{ $v->title }}<i>{{ $v->mark }}</i></span>
+                                    <span class="col-3">W:{{ $v->weight }}</span>
+                                    <span class="col-5">H:{{ $v->price }}</span>
+                                    <span class="col-4">T:{{ $v->updated_at }}</span>
+                                    <span class="col-3">U:{{ $v->unit_price }}</span>
+                                    <span class="col-2">Min:{{ $v->min }}</span><span class="col-2">Max:{{ $v->max }}</span>
                                 </div>
                                 <i class="fas fa-plus add-price" data-id="{{ $v->id }}" data-v="{{ $v->price }}" data-min="{{ $v->min }}"
                                     data-weight="{{ $v->weight }}" data-unit_price="{{ $v->unit_price }}" data-max="{{ $v->max }}"></i>

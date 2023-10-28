@@ -10,7 +10,21 @@ class Commodity extends Controller
     public function index()
     {
         $commodity = CommodityModel::orderBy('title')->get()->groupBy('genre');
-        return view('shop.index', ['commodity' => $commodity]);
+        $arr = [];
+        $array = [];
+        foreach ($commodity as $val) {
+            $arr[] = $val->count();
+        }
+        $arr = array_unique($arr);
+        sort($arr);
+        for ($i = 0; $i < count($arr); $i++) {
+            foreach ($commodity as $val) {
+                if ($val->count() == $arr[$i]) {
+                    $array[] = $val;
+                }
+            }
+        }
+        return view('shop.index', ['commodity' => $array]);
     }
     public function store(Request $request)
     {

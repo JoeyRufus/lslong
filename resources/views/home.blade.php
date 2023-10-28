@@ -13,7 +13,7 @@
     @include('z-leftMenu')
     <div class="container main">
         <div class="website">
-            <p class="title">最常使用 <a class="fas fa-bars" href="/website"></a></p>
+            <p class="title">最常使用 <a class="fas fa-bars" href="/website" title="more"></a></p>
             <div class="sites">
                 @foreach ($website as $v)
                     <div class="site">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="blog">
-            <p class="title">最新随笔<a class="fas fa-bars" href="/blog"></a></p>
+            <p class="title">最新随笔<a class="fas fa-bars" href="/blog" title="more"></a></p>
             @foreach ($blog as $v)
                 <div class="detail">
                     <h5><a href="/blog/detail/{{ $v->id }}" target="_blank">{{ $v->title }}</a></h5>
@@ -44,7 +44,7 @@
             @endforeach
         </div>
         <div class="exp">
-            <p class="title">最新经历<a class="fas fa-bars" href="/exp"></a></p>
+            <p class="title">最新经历<a class="fas fa-bars" href="/exp" title="more"></a></p>
             @foreach ($exp as $v)
                 <div class="detail">
                     <h5><a href="/exp/detail/{{ $v->id }}" target="_blank">{{ $v->title }} </a></h5>

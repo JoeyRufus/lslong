@@ -99,8 +99,8 @@
         language: 'zh-Hans',
         menubar: false,
         /* plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media  codesample table charmap pagebreak nonbreaking  insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion', */
-        plugins: 'accordion link image table media code fullscreen preview codesample',
-        toolbar: "blocks fontfamily fontsize forecolor backcolor removeformat | hr bold italic underline strikethrough  | align numlist bullist | codesample accordion link image table media | code fullscreen preview",
+        plugins: 'accordion link image table media code fullscreen preview codesample advlist lists',
+        toolbar: "blocks fontfamily fontsize forecolor backcolor align removeformat | hr bold italic underline strikethrough  | numlist bullist | blockquote  codesample accordion link image table media | code fullscreen preview",
         /* toolbar: "undo redo | hr accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview  | pagebreak  codesample", */
         toolbar_mode: 'wrap',
         height: 550,
