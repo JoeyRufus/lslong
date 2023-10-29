@@ -67,7 +67,8 @@
             $('.search-btn').fadeIn()
         }, 500);
     })
-    $('.search-btn').click(function() {
+
+    function TitleSearch() {
         var val = $('.search').val();
         if (val) {
             var url = '/blog/search/' + val;
@@ -76,7 +77,18 @@
                 $('.page').html('');
             })
         }
+    }
+
+    $('.search-btn').click(function() {
+        TitleSearch();
     })
+
+    document.onkeydown = function(e) {
+        var ev = document.all ? window.event : e;
+        if (ev.keyCode == 13) {
+            TitleSearch();
+        }
+    }
 
     function Del(id) {
         if (confirm("确定删除?")) {
@@ -90,12 +102,14 @@
             toastr.info('已取消');
         }
     }
+
     $('.page').on('click', 'span', function() {
         var page = $(this).text();
         var genreId = $('.page').data('genreid');
         GetBlog(genreId, page);
         $(this).addClass('active').siblings().removeClass('active');
     })
+
     $('.genre div').click(function() {
         $.ajaxSettings.async = false;
         var page = GetBlog($(this).data('id'));

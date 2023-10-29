@@ -82,7 +82,7 @@ class Blog extends Controller
         return $blog;
     }
     // 根据title搜索获取数据
-    public function getBlogByTitle($title, $page = 1)
+    public function getBlogByTitle($title)
     {
         $blog = BlogModel::where('title', 'like', "%$title%")->get();
         return Blog::ManageBlogContent($blog);

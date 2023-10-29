@@ -50,12 +50,9 @@
         }, function(d) {
             if (d.code == 200) {
                 toastr.success(d.msg, d.code);
+                path = path.length > 1 ? path : '';
                 setTimeout(function() {
-                    if (path == '/' && path == '')
-                        path = "/";
-                    else
-                        path = '/' + path;
-                    window.location.href = path;
+                    window.location.href = '/' + path;
                 }, 1000)
             } else {
                 toastr.error(d.msg, d.code);
