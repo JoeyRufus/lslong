@@ -29,7 +29,7 @@
     </style>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-exp.jpg')">
     @include('z-leftMenu')
     <div class="main">
         <h3>{{ $exp->title }}</h3>

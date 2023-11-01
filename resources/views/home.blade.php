@@ -9,7 +9,7 @@
     <title>主页</title>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-home.jpg')">
     @include('z-leftMenu')
     <div class="container main">
         <div class="website">

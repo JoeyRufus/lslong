@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @include('z-head', ['list' => '', 'prism' => true])
+    @include('z-head', ['prism' => true])
     <title>{{ $blog->title }}</title>
     <style>
         .main {
@@ -29,7 +29,7 @@
     </style>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-blog.jpg')">
     @include('z-leftMenu')
     <div class="main">
         <h3>{{ $blog->title }}</h3>

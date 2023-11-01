@@ -74,7 +74,7 @@
     </style>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-shop.jpg')">
     @include('z-leftMenu')
     <div class="fas fa-plus-circle add-commodity" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
     <div class="container-fluid" style="margin-top:20px">

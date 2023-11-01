@@ -9,7 +9,7 @@
     <title>网址</title>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-web.jpg')">
     @include('z-leftMenu')
     <div class="operate">
         <i class="fas fa-file-upload" title="导入"></i>

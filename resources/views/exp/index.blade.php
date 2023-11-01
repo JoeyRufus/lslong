@@ -9,7 +9,7 @@
     <title>经历</title>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-exp.jpg')">
     @include('z-leftMenu')
     <div class="container">
         <div class="row ">
@@ -17,7 +17,7 @@
                 <div class="last">
                     <p>最新经历 <span onclick="MceShow()" class="fas fa-pencil-alt" title="新经历"></span></p>
                     @foreach ($last as $v)
-                        <a href="/exp/detail/{{ $v->id }}">{{ $v->title }}</a>
+                        <a href="/exp/detail/{{ $v->id }}" target="_blank">{{ $v->title }}</a>
                     @endforeach
                 </div>
                 <div class="label">

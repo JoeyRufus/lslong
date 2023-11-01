@@ -9,7 +9,7 @@
     <title>博客</title>
 </head>
 
-<body>
+<body style="background-image: url('/images/bg-blog.jpg')">
     @include('z-leftMenu')
     <div class="container">
         <div class="row ">
@@ -21,7 +21,7 @@
                 <div class="last">
                     <p>最新随笔 <span onclick="MceShow()" class="fas fa-pencil-alt" title="新随笔"></span></p>
                     @foreach ($last as $v)
-                        <a href="/blog/detail/{{ $v->id }}">{{ $v->title }}</a>
+                        <a href="/blog/detail/{{ $v->id }}" target="_blank">{{ $v->title }}</a>
                     @endforeach
                 </div>
                 <div class="genre">

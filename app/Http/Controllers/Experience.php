@@ -45,6 +45,12 @@ class Experience extends Controller
             'content' => $data['content'],
         ]);
         $experience->experienceLabel()->sync($label_id);
+        $label = ExperienceLabelModel::withCount('experience')->get();
+        foreach ($label as $v) {
+            if ($v->experience_count == 0) {
+                ExperienceLabelModel::destroy($v->id);
+            }
+        }
         return response()->json([
             'code' => '200',
             'msg' => '更新成功~',
