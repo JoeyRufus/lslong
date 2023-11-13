@@ -49,5 +49,6 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('/', 'Commodity@index');
         Route::post('/store', 'Commodity@store');
         Route::post('/update', 'Commodity@update');
+        Route::get('/quality/{id}', 'Commodity@quality');
     });
 });

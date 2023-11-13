@@ -9,7 +9,7 @@ class Commodity extends Controller
 {
     public function index()
     {
-        $commodity = CommodityModel::orderBy('title')->get()->groupBy('genre');
+        $commodity = CommodityModel::where('quality', 1)->orderBy('title')->get()->groupBy('genre');
         $arr = [];
         $array = [];
         foreach ($commodity as $val) {
@@ -24,7 +24,8 @@ class Commodity extends Controller
                 }
             }
         }
-        return view('shop.index', ['commodity' => $array]);
+        $inferior = CommodityModel::where('quality', 0)->get();
+        return view('shop.index', ['commodity' => $array, 'inferior' => $inferior]);
     }
     public function store(Request $request)
     {
@@ -46,7 +47,16 @@ class Commodity extends Controller
         $r = CommodityModel::where('id', $data['id'])->update($array);
         return response()->json([
             'code' => '200',
-            'msg' => '添加成功~',
+            'msg' => '修改成功~',
+        ]);
+    }
+
+    public function quality($id)
+    {
+        $r = CommodityModel::where('id', $id)->update(['quality' => 0]);
+        return response()->json([
+            'code' => '200',
+            'msg' => '修改成功~',
         ]);
     }
 }

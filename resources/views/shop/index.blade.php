@@ -10,11 +10,31 @@
     <style>
         .add-commodity {
             position: fixed;
-            bottom: 15px;
-            right: 15px;
+            bottom: 10px;
+            right: 10px;
             font-size: 2rem;
             color: #eee;
             cursor: pointer;
+            z-index: 9;
+        }
+
+        .quality-0 {
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, .7);
+            border-radius: 10px;
+            margin: 0 5px 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .quality-0 div {
+            padding: 5px;
+            border: 1px solid;
+            margin: 5px;
+            border-radius: 5px;
+            color: #f1404b;
+            background: #fff;
+            font-size: 1.2rem;
         }
 
         .my-card-wrapper {
@@ -63,6 +83,12 @@
             cursor: pointer;
         }
 
+        .commodity .quality-change {
+            right: 20px;
+            top: 1px;
+            font-size: 1.1rem;
+        }
+
         .info i {
             font-size: .75rem;
             color: #f1404b;
@@ -71,6 +97,16 @@
         .info span {
             padding-bottom: 5px;
         }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 
@@ -78,6 +114,14 @@
     @include('z-leftMenu')
     <div class="fas fa-plus-circle add-commodity" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
     <div class="container-fluid" style="margin-top:20px">
+        <div class="quality-0">
+            @foreach ($inferior as $v)
+                <div>
+                    [<i class="fas fa-dollar-sign"></i>{{ $v->min }} <i class="fas fa-closed-captioning"></i>{{ $v->weight }}]{{ $v->title }}
+                </div>
+            @endforeach
+
+        </div>
         <div class="my-card-wrapper">
             @foreach ($commodity as $val)
                 <div class="my-card">
@@ -93,8 +137,10 @@
                                     <span class="col-3">U:{{ $v->unit_price }}</span>
                                     <span class="col-2">Min:{{ $v->min }}</span><span class="col-2">Max:{{ $v->max }}</span>
                                 </div>
-                                <i class="fas fa-plus add-price" data-id="{{ $v->id }}" data-v="{{ $v->price }}" data-min="{{ $v->min }}"
-                                    data-weight="{{ $v->weight }}" data-unit_price="{{ $v->unit_price }}" data-max="{{ $v->max }}"></i>
+                                <i class="fas fa-eraser quality-change" data-title="{{ $v->title }}" data-id="{{ $v->id }}"></i>
+                                <i class="fas fa-plus add-price" data-title="{{ $v->title }}" data-id="{{ $v->id }}" data-v="{{ $v->price }}"
+                                    data-min="{{ $v->min }}" data-weight="{{ $v->weight }}" data-unit_price="{{ $v->unit_price }}"
+                                    data-max="{{ $v->max }}"></i>
                             </div>
                         @endforeach
                     </div>
@@ -120,6 +166,7 @@
                             <select name="genre" class="form-select" required>
                                 <option value="蔬菜">蔬菜</option>
                                 <option value="水果">水果</option>
+                                <option value="速食">速食</option>
                                 <option value="米面">米面</option>
                                 <option value="零食">零食</option>
                                 <option value="酒饮">酒饮</option>
@@ -137,14 +184,14 @@
                             <label class="col-form-label">数量(g):</label>
                             <input type="hidden" name='weight'>
                             <div class="input-group">
-                                <input type="text" class="form-control w-first">
+                                <input type="number" class="form-control w-first">
                                 <span class="input-group-text status">-</span>
-                                <input type="text" class="form-control w-last">
+                                <input type="number" class="form-control w-last">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">价格:</label>
-                            <input type="text" class="form-control" name="price" required>
+                            <input type="number" class="form-control" name="price" required>
                             <input type="hidden" name="min">
                             <input type="hidden" name="max">
                             <input type="hidden" name="unit_price">
@@ -160,8 +207,20 @@
     </div>
 </body>
 <script>
+    $('.quality-change').click(function() {
+        var title = $(this).data('title');
+        if (confirm("确认将[" + title + "]放入低品质中吗？")) {
+            $.get('/shop/quality/' + $(this).data('id'), function(d) {
+                toastr.success(d.msg);
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000)
+            })
+        }
+    })
+
     $('.add-price').click(function() {
-        var price = prompt("输入价格:");
+        var price = prompt($(this).data('title') + "\n新价格:");
         if (price) {
             var com = $(this).data();
             var unit_price = com.unit_price;
